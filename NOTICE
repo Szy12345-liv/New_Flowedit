@@ -1,0 +1,12 @@
+DecFlowEdit: Self-Localized Flow-based Image Editing via Guidance Decoupling
+Copyright 2026 DecFlowEdit contributors
+
+DecFlowEdit additions are licensed under the Apache License, Version 2.0.
+
+This project includes code adapted from FlowEdit:
+Copyright (c) 2024 Vladimir Kulikov
+https://github.com/fallenshock/FlowEdit
+
+The FlowEdit-derived portions retain their original MIT license, reproduced
+in THIRD_PARTY_NOTICES.md. Third-party model weights, datasets, and images
+remain subject to their respective terms.

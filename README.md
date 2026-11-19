@@ -27,6 +27,8 @@ The short option changes the prior-extraction schedule only. The final editing s
 ```text
 New_Flowedit/
   README.md
+  LICENSE
+  NOTICE
   THIRD_PARTY_NOTICES.md
   CITATION.cff
   requirements.txt
@@ -139,6 +141,10 @@ All gallery images are existing paper examples. The gallery currently shows FLUX
 }
 ```
 
+## License
+
+DecFlowEdit additions are licensed under the [Apache License 2.0](LICENSE). FlowEdit-derived portions retain their original MIT license; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and [NOTICE](NOTICE). Third-party model weights, datasets, and images remain subject to their respective terms and are not relicensed under the code license.
+
 ## Acknowledgments
 
-The paired-state sampling routines build on [FlowEdit](https://github.com/fallenshock/FlowEdit). FlowEdit-derived code retains its MIT license, reproduced in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Licensing for the DecFlowEdit additions will be specified before public release. Pretrained weights and the complete benchmark dataset are not included. The website shows selected examples used in the paper, with its layout inspired by the FlowEdit project page.
+The paired-state sampling routines build on [FlowEdit](https://github.com/fallenshock/FlowEdit). Pretrained weights and the complete benchmark dataset are not included. The website shows selected examples used in the paper, with its layout inspired by the FlowEdit project page.

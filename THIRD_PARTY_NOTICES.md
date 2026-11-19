@@ -13,3 +13,5 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 The example in `assets/sample.jpg` is PIE-Bench task `000000000000`. Pretrained model weights are not included in this package.
+
+The gallery in `docs/assets/images/examples/` and the paper figures in `docs/assets/images/` show selected examples and results used in the paper. Third-party images and datasets retain their respective rights and terms; they are not relicensed under the Apache 2.0 code license.

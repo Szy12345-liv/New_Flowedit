@@ -1,6 +1,7 @@
 cff-version: 1.2.0
 message: "If you use DecFlowEdit, please cite the paper below."
 type: software
+license: Apache-2.0
 title: "DecFlowEdit: Self-Localized Flow-based Image Editing via Guidance Decoupling"
 authors:
   - family-names: Zhan
