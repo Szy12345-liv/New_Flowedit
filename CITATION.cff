@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use DecFlowEdit, please cite the paper below."
+type: software
+title: "DecFlowEdit: Self-Localized Flow-based Image Editing via Guidance Decoupling"
+authors:
+  - family-names: Zhan
+    given-names: Zheyuan
+  - family-names: Wang
+    given-names: Can
+  - family-names: Chen
+    given-names: Jiawei
+  - family-names: Chen
+    given-names: Chun
+  - family-names: Lyu
+    given-names: Siwei
+  - family-names: Zheng
+    given-names: Zeyu
+  - family-names: Chen
+    given-names: Defang
+url: "https://arxiv.org/abs/2609.34237"
+repository-code: "https://github.com/Szy12345-liv/New_Flowedit"
+preferred-citation:
+  type: article
+  title: "DecFlowEdit: Self-Localized Flow-based Image Editing via Guidance Decoupling"
+  authors:
+    - family-names: Zhan
+      given-names: Zheyuan
+    - family-names: Wang
+      given-names: Can
+    - family-names: Chen
+      given-names: Jiawei
+    - family-names: Chen
+      given-names: Chun
+    - family-names: Lyu
+      given-names: Siwei
+    - family-names: Zheng
+      given-names: Zeyu
+    - family-names: Chen
+      given-names: Defang
+  journal: "arXiv preprint arXiv:2609.34237"
+  year: 2026
+  url: "https://arxiv.org/abs/2609.34237"

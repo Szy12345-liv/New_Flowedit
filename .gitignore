@@ -1,0 +1,37 @@
+# Local maintenance, checks, and preview artifacts
+_internal/
+
+# Generated model outputs and downloaded weights
+outputs/
+checkpoints/
+models/
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.bin
+
+# Python caches and environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Local credentials, editor settings, and OS metadata
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Frontend dependency and test output
+node_modules/
+playwright-report/
+test-results/

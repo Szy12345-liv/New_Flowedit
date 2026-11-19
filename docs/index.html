@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="DecFlowEdit separates spatial localization from semantic editing across guidance configurations for self-localized, training-free image editing.">
+  <meta name="theme-color" content="#0d6efd">
+  <meta name="citation_title" content="DecFlowEdit: Self-Localized Flow-based Image Editing via Guidance Decoupling">
+  <meta name="citation_author" content="Zheyuan Zhan">
+  <meta name="citation_author" content="Can Wang">
+  <meta name="citation_author" content="Jiawei Chen">
+  <meta name="citation_author" content="Chun Chen">
+  <meta name="citation_author" content="Siwei Lyu">
+  <meta name="citation_author" content="Zeyu Zheng">
+  <meta name="citation_author" content="Defang Chen">
+  <meta property="og:title" content="DecFlowEdit: Self-Localized Flow-based Image Editing">
+  <meta property="og:description" content="Localize without CFG. Edit with default CFG. Explore DecFlowEdit's image editing results and code.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>DecFlowEdit — Self-Localized Flow-based Image Editing</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="assets/examples.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="navbar">
+    <nav class="container nav-inner" aria-label="Main navigation">
+      <a class="brand" href="#">DecFlowEdit</a>
+      <button class="nav-toggle" type="button" aria-controls="nav-links" aria-expanded="false">Menu</button>
+      <div class="nav-links" id="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#comparisons">Comparisons</a>
+        <a href="#results">Results</a>
+        <a href="https://arxiv.org/abs/2609.34237">Paper</a>
+        <a href="https://github.com/Szy12345-liv/New_Flowedit">Code</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="container paper-header" aria-labelledby="paper-title">
+      <h1 id="paper-title"><span>DecFlowEdit: Self-Localized Flow-based</span><br class="title-break"> Image Editing via Guidance Decoupling</h1>
+      <div class="authors" aria-label="Authors">
+        <div class="author-row"><span>Zheyuan Zhan<sup>1</sup></span><span>Can Wang<sup>1</sup></span><span>Jiawei Chen<sup>1</sup></span><span>Chun Chen<sup>1</sup></span><span>Siwei Lyu<sup>2</sup></span></div>
+        <div class="author-row"><span>Zeyu Zheng<sup>3</sup></span><span>Defang Chen<sup>3†</sup></span></div>
+      </div>
+      <div class="affiliations"><span><sup>1</sup>Zhejiang University</span><span><sup>2</sup>University at Buffalo</span><span><sup>3</sup>University of California, Berkeley</span></div>
+      <p class="correspondence">† Corresponding author</p>
+      <div class="resource-links">
+        <a class="button button-outline" href="https://arxiv.org/abs/2609.34237">Paper</a>
+        <a class="button button-outline" href="https://github.com/Szy12345-liv/New_Flowedit">Code</a>
+        <a class="button button-outline" href="#bibtex">BibTeX</a>
+      </div>
+      <p class="tagline">Localize without CFG. Edit with default CFG.</p>
+      <p class="lead">Training-free, inversion-free image editing with better preservation of non-edited content.</p>
+    </section>
+
+    <section class="container teaser" aria-label="Featured editing examples">
+      <div class="example-picker" id="hero-picker" role="group" aria-label="Choose a featured example">
+        <button type="button" class="choice is-active" data-example="cake" aria-pressed="true">Shape change</button>
+        <button type="button" class="choice" data-example="squirrel" aria-pressed="false">Object addition</button>
+        <button type="button" class="choice" data-example="kitten" aria-pressed="false">Object removal</button>
+        <button type="button" class="choice" data-example="new-york" aria-pressed="false">Background change</button>
+      </div>
+      <div class="image-grid teaser-grid" id="hero-grid">
+        <figure><figcaption>Source</figcaption><button type="button" class="image-button" data-full="assets/images/examples/cake/source.png" aria-label="Enlarge source image"><img src="assets/images/examples/cake/source.png" alt="Source: a round cake on a wooden plate" width="512" height="512" fetchpriority="high"></button></figure>
+        <figure><figcaption>FlowEdit</figcaption><button type="button" class="image-button" data-full="assets/images/examples/cake/flowedit-flux.png" aria-label="Enlarge FlowEdit result"><img src="assets/images/examples/cake/flowedit-flux.png" alt="FlowEdit result for changing the round cake to a square cake, using FLUX.1-dev" width="512" height="512"></button></figure>
+        <figure class="ours"><figcaption>DecFlowEdit <span class="method-note">(ours)</span></figcaption><button type="button" class="image-button" data-full="assets/images/examples/cake/decflowedit-flux.png" aria-label="Enlarge DecFlowEdit result"><img src="assets/images/examples/cake/decflowedit-flux.png" alt="DecFlowEdit result for changing the round cake to a square cake, using FLUX.1-dev" width="512" height="512"></button></figure>
+      </div>
+      <div class="prompt-pair" id="hero-prompt" aria-live="polite"><p><span class="prompt-label">Source prompt</span>A round cake on a wooden plate</p><p><span class="prompt-label">Target prompt</span>A <mark>square</mark> cake on a wooden plate</p></div>
+      <p class="figure-note">PIE-Bench examples with FLUX.1-dev. Click an image to enlarge.</p>
+    </section>
+
+    <section class="section section-muted" id="abstract">
+      <div class="container text-column">
+        <h2>Abstract</h2>
+        <p>Flow-based image editing (FlowEdit) enables inversion-free semantic changes through the difference between source and target velocities. In this paper, we observe that FlowEdit's default classifier-free guidance (CFG) configuration, with asymmetric source and target scales, causes substantial background leakage. Matching these guidance scales, for example by removing CFG, improves edit-relevant localization but severely degrades editability. To get the best of both worlds, we propose DecFlowEdit, which decouples the optimal guidance scales for localization and for editing in flow-based generative models. In particular, DecFlowEdit first extracts an edit-relevant prior by temporally aggregating velocity differences evaluated without CFG, and then uses this prior to reweight the original updates under default CFG. Our method remains training-free and inversion-free, requiring neither external spatial masks nor attention manipulation. Experiments on PIE-Bench across FLUX.1-dev, SD3, and SD3.5 show that DecFlowEdit improves background preservation, reducing structure distance by approximately 61–73% and background LPIPS by 68–80% relative to FlowEdit at comparable editing fidelity.</p>
+      </div>
+    </section>
+
+    <section class="section container" id="overview">
+      <h2>Observation and Overview</h2>
+      <p class="section-intro">Different guidance configurations favor different objectives. Without CFG, velocity differences provide more localized responses but produce weak edits. Default CFG enables stronger edits while introducing responses outside the intended edit region.</p>
+      <figure class="wide-figure">
+        <button type="button" class="image-button" data-full="assets/images/guidance-observation.png" aria-label="Enlarge the observation and method overview"><img src="assets/images/guidance-observation.png" alt="A goat-to-horse edit illustrates localized but weak editing without CFG, stronger editing with background changes under default CFG, and DecFlowEdit's two-stage spatial-prior method." loading="lazy" width="2400" height="1634"></button>
+        <figcaption>DecFlowEdit first extracts a spatial prior along a separate trajectory without CFG, then uses that prior to reweight the original updates under default CFG.</figcaption>
+      </figure>
+      <div class="method-explanation">
+        <div><h3>Prior extraction without CFG</h3><p>Aggregate intermediate velocity differences to identify the edit-relevant region, then convert the response into a soft spatial prior.</p></div>
+        <div><h3>Prior-guided editing with default CFG</h3><p>Use the fixed prior to spatially weight the editing updates, preserving content outside the intended edit region.</p></div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="comparisons">
+      <div class="container">
+        <h2>Qualitative Comparisons</h2>
+        <p class="section-intro">Explore the same edits across methods. Select a backbone and an example to compare editing behavior and preservation of surrounding content.</p>
+        <div class="backbone-picker" id="backbone-picker" role="group" aria-label="Choose a comparison backbone">
+          <button type="button" class="button is-active" data-backbone="flux" aria-pressed="true">FLUX.1-dev</button>
+          <button type="button" class="button" data-backbone="sd3" aria-pressed="false">Stable Diffusion 3</button>
+        </div>
+        <div class="comparison-toolbar">
+          <label for="comparison-example">Example <select id="comparison-example"><option value="cake">Shape change — cake</option><option value="squirrel">Object addition — squirrel</option><option value="kitten">Object removal — kitten</option><option value="new-york">Background change — New York</option></select></label>
+          <div class="step-controls"><button type="button" class="text-button" id="previous-example">Previous</button><span id="example-counter" aria-live="polite">1 / 4</span><button type="button" class="text-button" id="next-example">Next</button></div>
+        </div>
+        <div class="comparison-scroll" tabindex="0" aria-label="Image comparisons; scroll horizontally on narrow screens">
+          <div class="image-grid comparison-grid" id="comparison-grid"></div>
+        </div>
+        <div class="prompt-pair" id="comparison-prompt" aria-live="polite"></div>
+        <p class="figure-note" id="comparison-note">PIE-Bench examples shown in the paper. Click an image to enlarge.</p>
+        <noscript><p>Enable JavaScript to switch examples and backbones. The complete comparison is also available below.</p></noscript>
+        <details class="full-comparison"><summary>View the complete comparison figure</summary><button type="button" class="image-button" data-full="assets/images/qualitative.png" aria-label="Enlarge the full qualitative comparison"><img src="assets/images/qualitative.png" alt="Full paper comparison of four editing tasks across FLUX.1-dev and SD3 baselines and DecFlowEdit." loading="lazy" width="2400" height="1342"></button></details>
+      </div>
+    </section>
+
+    <section class="section container" id="results">
+      <h2>Results on PIE-Bench</h2>
+      <p class="section-intro">DecFlowEdit improves background preservation across three flow-model backbones. Ours-short uses approximately one quarter as many sampling steps for prior extraction while keeping the final editing stage unchanged.</p>
+      <div class="table-scroll" tabindex="0" aria-label="Quantitative results table; scroll horizontally on narrow screens">
+        <table class="results-table">
+          <caption>Selected metrics from the paper's main comparison. Lower structure distance and background LPIPS, and higher edited-region CLIP, are better.</caption>
+          <thead><tr><th scope="col">Backbone</th><th scope="col">Method</th><th scope="col">Structure<br><span>distance ↓</span></th><th scope="col">Background<br><span>LPIPS × 10³ ↓</span></th><th scope="col">Edited-region<br><span>CLIP ↑</span></th></tr></thead>
+          <tbody>
+            <tr class="group-start"><th scope="rowgroup" rowspan="3">FLUX.1-dev</th><th scope="row">FlowEdit</th><td>28.99</td><td>104.79</td><td>22.71</td></tr>
+            <tr><th scope="row">Ours-short</th><td>7.46</td><td>21.06</td><td>22.08</td></tr>
+            <tr class="ours-row"><th scope="row">DecFlowEdit</th><td>7.86</td><td>20.90</td><td>22.15</td></tr>
+            <tr class="group-start"><th scope="rowgroup" rowspan="3">SD3</th><th scope="row">FlowEdit</th><td>26.39</td><td>100.15</td><td>23.92</td></tr>
+            <tr><th scope="row">Ours-short</th><td>10.35</td><td>32.69</td><td>23.35</td></tr>
+            <tr class="ours-row"><th scope="row">DecFlowEdit</th><td>10.01</td><td>31.34</td><td>23.37</td></tr>
+            <tr class="group-start"><th scope="rowgroup" rowspan="3">SD3.5</th><th scope="row">FlowEdit</th><td>22.55</td><td>88.78</td><td>23.95</td></tr>
+            <tr><th scope="row">Ours-short</th><td>9.10</td><td>29.71</td><td>23.47</td></tr>
+            <tr class="ours-row"><th scope="row">DecFlowEdit</th><td>8.90</td><td>28.79</td><td>23.35</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="figure-note">See the <a href="https://arxiv.org/abs/2609.34237">paper</a> for the complete baseline comparison, ablations, and runtime measurements.</p>
+    </section>
+
+    <section class="section section-muted" id="bibtex">
+      <div class="container text-column">
+        <h2>BibTeX</h2>
+        <div class="citation-box"><button type="button" class="copy-button" id="copy-citation">Copy citation</button><pre tabindex="0" aria-label="BibTeX citation"><code id="citation-text">@article{zhan2026decflowedit,
+  title={DecFlowEdit: Self-Localized Flow-based Image Editing
+         via Guidance Decoupling},
+  author={Zhan, Zheyuan and Wang, Can and Chen, Jiawei and
+          Chen, Chun and Lyu, Siwei and Zheng, Zeyu and Chen, Defang},
+  journal={arXiv preprint arXiv:2609.34237},
+  year={2026},
+  url={https://arxiv.org/abs/2609.34237}
+}</code></pre></div>
+        <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container footer"><p>DecFlowEdit builds on <a href="https://matankleiner.github.io/flowedit/">FlowEdit</a>. Website layout inspired by the FlowEdit project page.</p><p><a href="https://arxiv.org/abs/2609.34237">Paper</a><span aria-hidden="true"> · </span><a href="https://github.com/Szy12345-liv/New_Flowedit">Code</a><span aria-hidden="true"> · </span><a href="#">Back to top</a></p></footer>
+
+  <dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-caption"><div class="lightbox-toolbar"><p id="lightbox-caption"></p><button type="button" class="button" id="close-lightbox">Close</button></div><img id="lightbox-image" alt=""><p class="lightbox-hint">Press Escape or click outside the image to close.</p></dialog>
+</body>
+</html>
